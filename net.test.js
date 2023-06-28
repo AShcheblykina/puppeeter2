@@ -15,7 +15,7 @@ afterEach(() => {
 describe("Successful booking", () => {
   beforeEach(async () => {
     page = await browser.newPage();
-    await page.goto("http://qamid.tmweb.ru/client/payment.php");
+    await page.goto("http://qamid.tmweb.ru/client/");
   });
 
   test("Ticket Booking", async () => {
@@ -25,14 +25,9 @@ describe("Successful booking", () => {
     await link.click();
     await page.waitForSelector("span");
     const twoLink = await page.$(
-      "body > main > section:nth-child(2) > a"
+      "body > main > section:nth-child(2) > div:nth-child(2) > ul > li > a"
     );
     await link.click();
-    await page.waitForSelector("a");
-    const fourLink = await page.$(
-      'body > main > section:nth-child(2) > div:nth-child(2) > ul > li > a'
-    );
-    await fourLink.click();
     await page.waitForSelector("a");
     const expected = "Унесенные ветром";
   });
