@@ -1,5 +1,6 @@
 const { clickElement, putText, getText } = require("./lib/commands.js");
 const { generateName } = require("./lib/util.js");
+const puppeteer = require('puppeteer');
 
 let page;
 
@@ -15,22 +16,76 @@ afterEach(() => {
 describe("Successful booking", () => {
   beforeEach(async () => {
     page = await browser.newPage();
-    await page.goto("http://qamid.tmweb.ru/client/");
+    await page.goto("http://qamid.tmweb.ru/client/index.php");
   });
+    test ("Movie Selection", async () => {
+      await page.click("body > nav > a.page-nav__day.page-nav__day_chosen > span.page-nav__day-week");
+       await page.waitForSelector("span");
+       await page.click("body > main > section:nth-child(1) > div.movie-seances__hall > ul");
+       const expected = "Начало сеанса: 10:00"
+      //  await page.click("body > main > section > div.buying-scheme > div.buying-scheme__wrapper")
+      //  await page.waitForSelector("div");
+      // await page.click("body > main > section > button");
+      // await page.waitForSelector("button");
+      // const expected = "ВЫ ВЫБРАЛИ БИЛЕТЫ:";
+    })
 
-  test("Ticket Booking", async () => {
-    const link = await page.$(
-      "body > nav > a.page-nav__day.page-nav__day_chosen > span"
-    );
-    await link.click();
-    await page.waitForSelector("span");
-    const twoLink = await page.$(
-      "body > main > section:nth-child(2) > div:nth-child(2) > ul > li > a"
-    );
-    await link.click();
-    await page.waitForSelector("a");
-    const expected = "Унесенные ветром";
-  });
+
+
+
+
+
+
+
+
+
+
+
+  // test("Movie Selection", async () => {
+  //   const link = await page.$(
+  //     "body > nav > a.page-nav__day.page-nav__day_chosen > span.page-nav__day-week"
+  //   );
+  //   await link.click();
+  //   await page.waitForSelector("span");
+  //   const twoLink = await page.$(
+  //     "body > main > section:nth-child(2) > div:nth-child(3) > ul > li"
+  //   );
+  //   await twoLink.click();
+  //   await page.waitForSelector("li");
+  //   const expected = "Унесенные ветром, Начало сеанса: 16:00";
+  // });
+//   test("Failed Order", async () => {
+//     const link = await page.$(
+//       "body > nav > a.page-nav__day.page-nav__day_chosen > a"
+//     );
+//     await link.click();
+//     await page.waitForSelector("a");
+//     const twolink = await page.$(
+//       "body > main > section:nth-child(1) > div.movie-seances__hall > ul > li"
+//     );
+//     await twolink.click();
+//     await page.waitForSelector("li");
+//     const expected = "Терминатор-заржавел";
+  
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // test("Ticket Booking", async () => {
   //   const link = await page.$(
