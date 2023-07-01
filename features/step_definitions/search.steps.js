@@ -1,34 +1,38 @@
-// const puppeteer = require("puppeteer");
-// const chai = require("chai");
-// const expect = chai.expect;
-// const { Given, When, Then, Before, After } = require("cucumber");
-// const { putText, getText } = require("../../lib/commands.js");
+const puppeteer = require("puppeteer");
+const chai = require("chai");
+const expect = chai.expect;
+const { Given, When, Then, Before, After } = require("cucumber");
+const { putText, getText } = require("../../lib/commands.js");
 
-// Before(async function () {
-//   const browser = await puppeteer.launch({ headless: false, slowMo: 50 });
-//   const page = await browser.newPage();
-//   this.browser = browser;
-//   this.page = page;
-// });
+Before(async function () {
+  const browser = await puppeteer.launch({ headless: false, slowMo: 50 });
+  const page = await browser.newPage();
+  this.browser = browser;
+  this.page = page;
+});
 
-// After(async function () {
-//   if (this.browser) {
-//     await this.browser.close();
-//   }
-// });
+After(async function () {
+  if (this.browser) {
+    await this.browser.close();
+  }
+});
 
-// Given("user is on {string} page", async function (string) {
-//   return await this.page.goto(`https://netology.ru${string}`, {
-//     setTimeout: 20000,
-//   });
-// });
+Given("the user is on the home page", async () => {
+  page = await browser.newPage();
+  await page.goto("http://qamid.tmweb.ru/client/index.php");
+});
 
-// When("user search by {string}", async function (string) {
-//   return await putText(this.page, "input", string);
-// });
+When("the user selects a movie", async () => {
+  await page.click(
+    "body > nav > a.page-nav__day.page-nav__day_chosen > span.page-nav__day-week"
+  );
+  await page.waitForSelector("span");
+  await page.click(
+    "body > main > section:nth-child(1) > div.movie-seances__hall > ul"
+  );
+  await page.waitForSelector("li");
+});
 
-// Then("user sees the course suggested {string}", async function (string) {
-//   const actual = await getText(this.page, "a[data-name]");
-//   const expected = await string;
-//   expect(actual).contains(expected);
-// });
+Then("the user sees the movie session starting at 10:00", async () => {
+  const expected = "Начало сеанса: 10:00";
+});
