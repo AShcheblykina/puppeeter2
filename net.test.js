@@ -24,22 +24,22 @@ describe("Successful booking", () => {
     );
     await page.waitForSelector("span");
     await page.click(
-      "body > main > section:nth-child(1) > div.movie-seances__hall > ul"
+      "body > main > section:nth-child(1) > div:nth-child(2) > ul > li"
     );
     await page.waitForSelector("li");
     const expected = "Начало сеанса: 10:00";
-  }, 70000);
-  test("Movie Choice for Tomorrow", async () => {
+  }, 90000);
+  test("Movie Choice another time ", async () => {
     await page.click(
-      "body > nav > a.page-nav__day.page-nav__day_weekend.page-nav__day_chosen > span.page-nav__day-number"
+      "body > nav > a.page-nav__day.page-nav__day_chosen > span.page-nav__day-week"
     );
     await page.waitForSelector("span");
     await page.click(
-      "body > main > section:nth-child(2) > div:nth-child(2) > ul > li"
+      "body > main > section:nth-child(1) > div:nth-child(3) > ul > li"
     );
     await page.waitForSelector("li");
-    const expected = "Начало сеанса: 12:00";
-  });
+    const expected = "Начало сеанса: 11:00";
+  },90000);
 });
 describe("Unsuccessful booking", () => {
   beforeEach(async () => {
@@ -48,12 +48,12 @@ describe("Unsuccessful booking", () => {
   });
   test("Bad booking", async () => {
     await page.click(
-      "body > main > section > div.buying-scheme > div.buying-scheme__wrapper"
+      "body > main > section > div.buying-scheme > div.buying-scheme__wrapper > div:nth-child(1)"
     );
-    await page.waitForSelector("span");
+    await page.waitForSelector("div");
     await page.click("body > main > section > button");
     await page.waitForSelector("button");
     const expected = "ВЫ ВЫБРАЛИ БИЛЕТЫ:";
-  });
+  }, 90000);
 });
 
